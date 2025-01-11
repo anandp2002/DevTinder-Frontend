@@ -1,7 +1,7 @@
-import LOGO from '../../public/devTinder.jpg';
+import LOGO from '/devTinder.jpg';
 const Navbar = () => {
   return (
-    <div className="navbar bg-base-300">
+    <div className="navbar bg-base-300 text-white">
       <div className="flex-1 flex items-center">
         <img src={LOGO} className="h-8 w-8" />
         <a className="btn btn-ghost text-xl">daisyUI</a>
