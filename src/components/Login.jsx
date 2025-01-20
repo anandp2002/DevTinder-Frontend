@@ -2,10 +2,14 @@ import { LogIn } from 'lucide-react';
 import LOGO from '/tinder.webp';
 import axios from 'axios';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
 
 const Login = () => {
   const [emailId, setEmailId] = useState('anand@gmail.com');
   const [password, setPassword] = useState('Anand@123');
+
+  const dispatch = useDispatch();
   const handleLogin = async (e) => {
     try {
       e.preventDefault();
@@ -17,7 +21,7 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      console.log(res);
+      dispatch(addUser(res.data));
     } catch (err) {
       console.error(err);
     }
