@@ -1,10 +1,10 @@
-import LOGO from '/devTinder.jpg';
+import LOGO from '/tinder.webp';
 const Navbar = () => {
   return (
-    <div className="navbar bg-base-300 text-white">
+    <div className="navbar bg-black text-white">
       <div className="flex-1 flex items-center">
         <img src={LOGO} className="h-8 w-8" />
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-xl -ml-2">DevTinder</a>
       </div>
       <div className="flex-none gap-2">
         <div className="dropdown dropdown-end">
