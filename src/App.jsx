@@ -5,10 +5,12 @@ import Body from './components/Body';
 import { Provider } from 'react-redux';
 import appStore from './utils/appStore';
 import Feed from './components/Feed';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <Provider store={appStore}>
+      <Toaster />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Body />}>
