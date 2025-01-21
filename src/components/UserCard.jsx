@@ -4,18 +4,20 @@ const UserCard = ({ user }) => {
   const { firstName, lastName, about, gender, age, photoUrl } = user;
 
   return (
-    <div className="card bg-gray-800 w-96 shadow-xl m-4 p-2">
+    <div className="card bg-gray-800 shadow-xl m-4 p-2">
       <figure>
-        <img src={photoUrl} alt="Shoes" />
+        <img className="h-80 w-auto object-cover" src={photoUrl} alt="user" />
       </figure>
-      <div className="card-body">
-        <h2 className="card-title">{firstName + ' ' + lastName}</h2>
-        <div className="flex items-center justify-start">
-          {gender && <p className="bg-red-900">{gender}</p>}
-          {age && <p className="bg-yellow-900">{age}</p>}
+      <div className="p-4">
+        <h2 className="card-title text-white">{firstName + ' ' + lastName}</h2>
+        <div className="items-center justify-start">
+          {gender && <p className="">{gender}</p>}
+          {age && <p className="">{age}</p>}
         </div>
         {about && <p>{about}</p>}
-        <div className="justify-end gap-x-5 flex">
+      </div>
+      <div className="card-body flex justify-end -mt-4">
+        <div className="justify-end gap-4 flex -my-7">
           <button className="btn btn-primary">Reject</button>
           <button className="btn btn-secondary">Interested</button>
         </div>

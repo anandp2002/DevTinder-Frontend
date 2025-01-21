@@ -42,7 +42,7 @@ const EditProfile = ({ user }) => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row justify-center my-10 gap-8 w-full">
+      <div className="flex flex-col lg:flex-row items-start justify-center my-10 gap-8 w-full">
         <div className="flex justify-center max-w-2xl px-4 w-full">
           <div className="card bg-base-300 w-full shadow-xl">
             <div className="card-body">
@@ -129,6 +129,11 @@ const EditProfile = ({ user }) => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="hidden justify-between lg:block px-4 w-auto -mt-4">
+          <UserCard
+            user={{ firstName, lastName, photoUrl, age, gender, about }}
+          />
         </div>
       </div>
     </>
