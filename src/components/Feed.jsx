@@ -24,13 +24,17 @@ const Feed = () => {
     getFeed();
   }, []);
 
-  if (!feed) return;
+  if (!feed) {
+    return;
+  }
+
+  if (feed.length <= 0) {
+    return <h1 className="text-center">No new users !</h1>;
+  }
   return (
     feed && (
       <div className="justify-center flex-wrap flex my-10">
-        {feed.map((person, index) => (
-          <UserCard key={index} user={person} />
-        ))}
+        <UserCard user={feed[0]} />
       </div>
     )
   );
