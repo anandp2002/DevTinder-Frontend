@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../utils/constants';
-import { LogIn } from 'lucide-react';
+import { LogIn, Loader } from 'lucide-react';
 
 const Login = () => {
   const [emailId, setEmailId] = useState('@gmail.com');
@@ -14,6 +14,7 @@ const Login = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [isLoginForm, setIsLoginForm] = useState(true);
+  const [loading, setLoading] = useState(false); // Loading state for spinner
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true); // Start loading
       const res = await axios.post(
         BASE_URL + '/auth/login',
         {
@@ -33,27 +35,33 @@ const Login = () => {
       dispatch(addUser(res.data)); // Add user data to the store
       navigate('/');
     } catch (err) {
-      setError(err?.response?.data || 'Something went wrong !');
+      setError(err?.response?.data || 'Something went wrong!');
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
+  // SignUp function
   const handleSignUp = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true); // Start loading
       const res = await axios.post(
         BASE_URL + '/auth/signup',
         { firstName, lastName, emailId, password },
         { withCredentials: true }
       );
       dispatch(addUser(res?.data?.data)); // Add user data to the store
-      return navigate('/profile');
+      navigate('/profile');
     } catch (err) {
-      setError(err?.response?.data || 'Something went wrong !');
+      setError(err?.response?.data || 'Something went wrong!');
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
   return (
-    <div className=" flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-950 via-gray-800 to-gray-950 text-white px-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-950 via-gray-800 to-gray-950 text-white px-4">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
         {/* Header */}
         <div className="flex items-center justify-center gap-2 mb-6">
@@ -125,15 +133,22 @@ const Login = () => {
             <button
               type="submit"
               className="w-full flex items-center justify-center gap-2 bg-gray-900 text-white font-medium px-4 py-2 rounded-md hover:bg-gray-950 transition duration-200"
+              disabled={loading} // Disable button while loading
             >
-              <LogIn className="h-5" />
-              {isLoginForm ? 'Login' : 'Sign Up'}
+              {loading ? (
+                <Loader className="animate-spin h-5 w-5" />
+              ) : (
+                <>
+                  <LogIn className="h-5" />
+                  {isLoginForm ? 'Login' : 'Sign Up'}
+                </>
+              )}
             </button>
           </div>
           {isLoginForm ? (
             <div className="text-center">
               <p className="text-sm text-gray-400">
-                Don’t have an account ?{' '}
+                Don’t have an account?{' '}
                 <span
                   onClick={() => setIsLoginForm(false)}
                   className="text-blue-500 hover:text-blue-400 cursor-pointer"
@@ -145,7 +160,7 @@ const Login = () => {
           ) : (
             <div className="text-center">
               <p className="text-sm text-gray-400">
-                Already have an account ?{' '}
+                Already have an account?{' '}
                 <span
                   onClick={() => setIsLoginForm(true)}
                   className="text-blue-500 hover:text-blue-400 cursor-pointer"
