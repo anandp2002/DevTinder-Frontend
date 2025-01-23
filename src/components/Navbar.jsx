@@ -5,6 +5,7 @@ import axios from 'axios';
 import { BASE_URL } from '../utils/constants';
 import { removeUser } from '../utils/userSlice';
 import { clearFeed } from '../utils/feedSlice';
+import { clearRequests } from '../utils/requestsSlice';
 
 const Navbar = () => {
   const user = useSelector((store) => store.user);
@@ -21,6 +22,7 @@ const Navbar = () => {
 
       dispatch(clearFeed());
       dispatch(removeUser());
+      dispatch(clearRequests());
 
       navigate('/');
     } catch (err) {
