@@ -5,6 +5,7 @@ import { BASE_URL } from '../utils/constants';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
@@ -15,6 +16,7 @@ const EditProfile = ({ user }) => {
   const [about, setAbout] = useState(user.about || '');
   const [error, setError] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const saveProfile = async () => {
     // Clear Errors
@@ -36,17 +38,18 @@ const EditProfile = ({ user }) => {
       toast.success('Profile saved successfully !');
     } catch (err) {
       setError(err.response.data);
-      toast.error('Failed to save profile. Please try again.');
     }
   };
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row items-start justify-center my-10 gap-8 w-full">
-        <div className="flex justify-center max-w-2xl px-4 w-full">
+      <div className="flex flex-col lg:flex-row items-start justify-center my-8 gap-8 w-full">
+        <div className="flex justify-center max-w-xl px-4 w-full">
           <div className="card bg-base-300 w-full shadow-xl">
             <div className="card-body">
-              <h2 className="card-title justify-center">Edit Profile</h2>
+              <h2 className="card-title text-white font-bold justify-center">
+                Edit your Profile
+              </h2>
               <div>
                 <label className="form-control w-full my-2">
                   <div className="label">
@@ -121,10 +124,13 @@ const EditProfile = ({ user }) => {
               <p className="text-red-500 text-sm">{error}</p>
               <div className="card-actions justify-center mt-4">
                 <button
-                  className="btn btn-primary w-full"
-                  onClick={saveProfile}
+                  className="btn font-bold bg-[#316FF6] hover:bg-blue-600 text-white w-full"
+                  onClick={() => {
+                    saveProfile();
+                    navigate('/');
+                  }}
                 >
-                  Save Profile
+                  Save
                 </button>
               </div>
             </div>
@@ -132,6 +138,7 @@ const EditProfile = ({ user }) => {
         </div>
         <div className="hidden justify-between lg:block px-4 w-auto -mt-4">
           <UserCard
+            isProfilePage={true}
             user={{ firstName, lastName, photoUrl, age, gender, about }}
           />
         </div>
