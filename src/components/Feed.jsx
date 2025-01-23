@@ -38,17 +38,18 @@ const Feed = () => {
   // Show loading message or spinner
   if (loading) {
     return (
-      <h1 className="text-white -mt-16 sm:-mt-10 min-h-screen items-center flex justify-center text-2xl">
-        <Loader className="animate-spin text-gray-700 size-10" />
-      </h1>
+      <div className="text-white -mt-16 sm:-mt-10 min-h-screen items-center flex justify-center text-2xl">
+        <Loader className="animate-spin text-gray-500 size-10" />
+      </div>
     );
   }
 
   if (!feed || feed.length <= 0) {
     return (
-      <h1 className="text-white -mt-16 sm:-mt-10 min-h-screen items-center flex justify-center text-2xl">
-        Sorry, No new users !
-      </h1>
+      <div className="text-white -mt-16 sm:-mt-10 min-h-screen items-center flex flex-col justify-center">
+        <p className=" text-3xl"> Sorry, No new users !</p>
+        <p className="text-xl mt-2"> Please try again later</p>
+      </div>
     );
   }
 

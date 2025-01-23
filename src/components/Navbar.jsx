@@ -60,7 +60,7 @@ const Navbar = () => {
               onClick={() => setIsDropdownOpen(!isDropdownOpen)} // Toggle dropdown
             >
               <div className="w-9 rounded-full">
-                <img alt="user" src={user.photoUrl} />
+                <img alt="photo" src={user.photoUrl} />
               </div>
             </div>
             {isDropdownOpen && (
