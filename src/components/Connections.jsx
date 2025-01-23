@@ -32,6 +32,11 @@ const Connections = () => {
 
   useEffect(() => {
     getConnections();
+    // Scroll to top when the component is loaded
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Optional: smooth scrolling
+    });
   }, []);
 
   // Render a loading spinner while data is being fetched

@@ -43,6 +43,11 @@ const Requests = () => {
 
   useEffect(() => {
     fetchRequests();
+    // Scroll to top when the component is loaded
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Optional: smooth scrolling
+    });
   }, []);
 
   // Show loading message or spinner
