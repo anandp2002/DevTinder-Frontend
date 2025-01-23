@@ -29,11 +29,15 @@ const Feed = () => {
   }
 
   if (feed.length <= 0) {
-    return <h1 className="text-center">No new users !</h1>;
+    return (
+      <h1 className="text-white -mt-16 sm:-mt-10 min-h-screen items-center flex justify-center text-2xl">
+        Sorry, No new users !
+      </h1>
+    );
   }
   return (
     feed && (
-      <div className="justify-center flex-wrap flex my-10">
+      <div className="justify-center items-center -mt-16 sm:-mt-10 min-h-screen flex-wrap flex">
         <UserCard user={feed[0]} />
       </div>
     )

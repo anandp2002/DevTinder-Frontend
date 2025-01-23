@@ -20,29 +20,39 @@ const UserCard = ({ user }) => {
   };
 
   return (
-    <div className="card bg-gray-800 shadow-xl m-4 p-2">
+    <div className="card bg-gray-900 shadow-xl m-4">
       <figure>
-        <img className="h-80 w-auto object-cover" src={photoUrl} alt="user" />
+        <img
+          className="h-80 w-80 sm:h-[340px] sm:w-[340px] object-cover"
+          src={photoUrl}
+          alt="user"
+        />
       </figure>
+
       <div className="p-4">
         <h2 className="card-title text-white">{firstName + ' ' + lastName}</h2>
-        <div className="items-center justify-start">
+        <div className="items-center flex justify-start">
           {gender && <p className="">{gender}</p>}
-          {age && <p className="">{age}</p>}
+          {age && (
+            <>
+              <span>{' , '}</span>
+              <p className="ml-2">{age}</p>
+            </>
+          )}
         </div>
         {about && <p>{about}</p>}
       </div>
-      <div className="card-body flex justify-end -mt-4">
-        <div className="justify-end gap-4 flex -my-7">
+      <div className=" flex justify-end pb-5">
+        <div className="justify-end gap-4 flex pr-5">
           <button
             onClick={() => handleSendRequest('ignored', _id)}
-            className="btn btn-primary"
+            className="btn bg-red-500 hover:bg-red-600 font-bold  text-white"
           >
             Reject
           </button>
           <button
             onClick={() => handleSendRequest('interested', _id)}
-            className="btn btn-secondary"
+            className="btn bg-green-500 hover:bg-green-600 font-bold text-white"
           >
             Interested
           </button>
