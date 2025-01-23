@@ -53,12 +53,12 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-950 via-gray-800 to-gray-950 text-white px-4">
+    <div className=" flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-950 via-gray-800 to-gray-950 text-white px-4">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
         {/* Header */}
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <img src={LOGO} alt="Logo" className="h-10 w-10 rounded-full" />
-          <h1 className="text-3xl font-bold text-center">Get Started</h1>
+        <div className="flex items-center justify-center gap-2 mb-6">
+          <img src={LOGO} alt="Logo" className="h-9 w-9 rounded-full" />
+          <h1 className="text-3xl font-bold text-center">DevTinder</h1>
         </div>
         <form
           onSubmit={(e) => {
@@ -126,7 +126,7 @@ const Login = () => {
               type="submit"
               className="w-full flex items-center justify-center gap-2 bg-gray-900 text-white font-medium px-4 py-2 rounded-md hover:bg-gray-950 transition duration-200"
             >
-              <LogIn />
+              <LogIn className="h-5" />
               {isLoginForm ? 'Login' : 'Sign Up'}
             </button>
           </div>

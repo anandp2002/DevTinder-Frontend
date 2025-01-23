@@ -32,9 +32,9 @@ const Body = () => {
   }, [userData]);
   return (
     <>
-      <Navbar />
+      {userData && <Navbar />}
       <Outlet />
-      <Footer />
+      {userData && <Footer />}
     </>
   );
 };

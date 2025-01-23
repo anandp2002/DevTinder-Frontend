@@ -31,7 +31,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-300 text-white">
+    <div className="navbar z-50 bg-base-300 text-white">
       <div className="flex-1 flex items-center">
         <Link to="/">
           <img src={LOGO} className="h-8 w-8" />
