@@ -16,7 +16,13 @@ const Connections = () => {
       const res = await axios.get(BASE_URL + '/user/connections', {
         withCredentials: true,
       });
-      dispatch(addConnections(res.data.data));
+
+      // Sort connections by `createdAt` (newest first)
+      const sortedConnections = res.data.data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      dispatch(addConnections(sortedConnections));
     } catch (err) {
       console.error(err);
     } finally {
@@ -40,8 +46,8 @@ const Connections = () => {
   if (!connections || connections.length === 0) {
     return (
       <div className="text-white -mt-16 sm:-mt-10 min-h-screen items-center flex flex-col justify-center">
-        <p className=" text-3xl"> Sorry, No Connections !</p>
-        <p className="text-xl mt-2"> Find some matches</p>
+        <p className="text-3xl">Sorry, No Connections !</p>
+        <p className="text-xl mt-2">Find some matches</p>
       </div>
     );
   }
