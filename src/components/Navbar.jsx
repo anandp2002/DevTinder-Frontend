@@ -6,11 +6,13 @@ import { BASE_URL } from '../utils/constants';
 import { removeUser } from '../utils/userSlice';
 import { clearFeed } from '../utils/feedSlice';
 import { clearRequests } from '../utils/requestsSlice';
+import { useState } from 'react';
 
 const Navbar = () => {
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Dropdown state
 
   const handleLogout = async () => {
     try {
@@ -27,7 +29,13 @@ const Navbar = () => {
       navigate('/');
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsDropdownOpen(false); // Close dropdown on logout
     }
+  };
+
+  const handleDropdownClose = () => {
+    setIsDropdownOpen(false); // Close dropdown menu
   };
 
   return (
@@ -49,28 +57,28 @@ const Navbar = () => {
               tabIndex={0}
               role="button"
               className="btn btn-ghost btn-circle avatar"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)} // Toggle dropdown
             >
               <div className="w-9 rounded-full">
                 <img alt="user" src={user.photoUrl} />
               </div>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-300 rounded-box z-[1] mt-3 w-52 p-2 shadow-lg"
-            >
-              <li>
-                <Link to="/profile">Profile</Link>
-              </li>
-              <li>
-                <Link to="/connections">Connections</Link>
-              </li>
-              <li>
-                <Link to="/requests">Requests</Link>
-              </li>
-              <li onClick={handleLogout}>
-                <Link to="/">Logout</Link>
-              </li>
-            </ul>
+            {isDropdownOpen && (
+              <ul className="menu menu-sm dropdown-content bg-base-300 rounded-box z-[1] mt-3 w-52 p-2 shadow-lg">
+                <li onClick={handleDropdownClose}>
+                  <Link to="/profile">Profile</Link>
+                </li>
+                <li onClick={handleDropdownClose}>
+                  <Link to="/connections">Connections</Link>
+                </li>
+                <li onClick={handleDropdownClose}>
+                  <Link to="/requests">Requests</Link>
+                </li>
+                <li onClick={handleLogout}>
+                  <Link to="/">Logout</Link>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       )}
