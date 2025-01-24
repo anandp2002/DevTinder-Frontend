@@ -13,6 +13,9 @@ import {
 } from '../utils/constants';
 import { Loader } from 'lucide-react';
 
+const DEFAULT_PROFILE_URL =
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/340px-Default_pfp.svg.png';
+
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
@@ -39,16 +42,21 @@ const EditProfile = ({ user }) => {
       setUploading(true);
       const res = await axios.post(CLOUDINARY_URL, formData);
       setPhotoUrl(res.data.secure_url); // Set the uploaded image URL
-      toast.success('Image updated successfully !');
+      toast.success('Image updated successfully!');
     } catch (err) {
       console.error(err);
-      toast.error('Failed to update image, Try again !');
+      toast.error('Failed to update image, try again!');
     } finally {
       setUploading(false);
     }
   };
 
   const saveProfile = async () => {
+    if (photoUrl === DEFAULT_PROFILE_URL) {
+      toast.error('Please upload a new profile image to complete the profile!');
+      return;
+    }
+
     setError('');
     setSaving(true); // Start the saving state
     try {
@@ -160,13 +168,20 @@ const EditProfile = ({ user }) => {
               </label>
             </div>
             <p className="text-red-500 text-sm">{error}</p>
+            {photoUrl === DEFAULT_PROFILE_URL && (
+              <p className="text-yellow-500 text-sm mt-2">
+                Please upload a new profile picture to save your profile.
+              </p>
+            )}
             <div className="card-actions justify-center mt-4">
               <button
                 className={`btn font-bold ${
-                  saving ? 'bg-gray-400' : 'bg-[#316FF6] hover:bg-blue-600'
+                  saving || photoUrl === DEFAULT_PROFILE_URL
+                    ? 'bg-gray-400'
+                    : 'bg-[#316FF6] hover:bg-blue-600'
                 } text-white w-full`}
                 onClick={saveProfile}
-                disabled={saving} // Disable button while saving
+                disabled={saving || photoUrl === DEFAULT_PROFILE_URL} // Disable if saving or default photo
               >
                 {saving ? (
                   <div className="flex items-center justify-center gap-2">
