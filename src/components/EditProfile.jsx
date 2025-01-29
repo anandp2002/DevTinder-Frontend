@@ -130,6 +130,11 @@ const EditProfile = ({ user }) => {
                   </div>
                 )}
               </label>
+              {photoUrl === DEFAULT_PROFILE_URL && (
+                <p className="text-yellow-500 text-sm mt-2">
+                  Please upload a new profile picture to save your profile.
+                </p>
+              )}
               <label className="form-control w-full my-2">
                 <div className="label">
                   <span className="label-text">Age</span>
@@ -168,11 +173,7 @@ const EditProfile = ({ user }) => {
               </label>
             </div>
             <p className="text-red-500 text-sm">{error}</p>
-            {photoUrl === DEFAULT_PROFILE_URL && (
-              <p className="text-yellow-500 text-sm mt-2">
-                Please upload a new profile picture to save your profile.
-              </p>
-            )}
+
             <div className="card-actions justify-center mt-4">
               <button
                 className={`btn font-bold ${
