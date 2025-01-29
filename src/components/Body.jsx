@@ -4,14 +4,16 @@ import Footer from './Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { BASE_URL } from '../utils/constants';
 import { addUser } from '../utils/userSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Loader } from 'lucide-react';
 
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const userData = useSelector((store) => store.user);
+  const [loading, setLoading] = useState(true);
 
   const fetchUser = async () => {
     try {
@@ -20,15 +22,24 @@ const Body = () => {
       });
       dispatch(addUser(res.data));
     } catch (err) {
-      if (err) {
-        navigate('/login');
-      }
+      navigate('/login');
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchUser();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader className="h-10 w-10 animate-spin text-gray-500" />
+      </div>
+    );
+  }
+
   return (
     <>
       {userData && <Navbar />}
