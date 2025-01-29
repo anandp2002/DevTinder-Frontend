@@ -81,7 +81,10 @@ const Login = () => {
                 </span>
                 <input
                   value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                    setError('');
+                  }}
                   type="text"
                   className="w-full px-4 py-2 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400"
                 />
@@ -92,7 +95,10 @@ const Login = () => {
                 </span>
                 <input
                   value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                    setError('');
+                  }}
                   type="text"
                   className="w-full px-4 py-2 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400"
                 />
@@ -106,7 +112,10 @@ const Login = () => {
             </span>
             <input
               value={emailId}
-              onChange={(e) => setEmailId(e.target.value)}
+              onChange={(e) => {
+                setEmailId(e.target.value);
+                setError('');
+              }}
               type="email"
               placeholder="Enter your email"
               className="w-full px-4 py-2 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400"
@@ -121,7 +130,10 @@ const Login = () => {
             <div className="relative">
               <input
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setError('');
+                }}
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Enter your password"
                 className="w-full px-4 py-2 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400"
@@ -142,7 +154,7 @@ const Login = () => {
 
           {/* Login or SignUp Button */}
           <div className="mb-6">
-            <p className="text-red-500 mb-4">{error}</p>
+            <p className="text-red-500 mb-4 text-justify flex">{error}</p>
             <button
               type="submit"
               className="w-full flex items-center justify-center gap-2 bg-gray-900 text-white font-medium px-4 py-2 rounded-md hover:bg-gray-950 transition duration-200"
@@ -165,7 +177,10 @@ const Login = () => {
               <p className="text-sm text-gray-400">
                 Don’t have an account?{' '}
                 <span
-                  onClick={() => setIsLoginForm(false)}
+                  onClick={() => {
+                    setIsLoginForm(false);
+                    setError('');
+                  }}
                   className="text-blue-500 hover:text-blue-400 cursor-pointer"
                 >
                   Sign up now
@@ -177,7 +192,10 @@ const Login = () => {
               <p className="text-sm text-gray-400">
                 Already have an account?{' '}
                 <span
-                  onClick={() => setIsLoginForm(true)}
+                  onClick={() => {
+                    setIsLoginForm(true);
+                    setError('');
+                  }}
                   className="text-blue-500 hover:text-blue-400 cursor-pointer"
                 >
                   Login here
