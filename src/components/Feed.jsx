@@ -4,16 +4,15 @@ import { BASE_URL } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFeed } from '../utils/feedSlice';
 import { useEffect, useState } from 'react';
-import { Loader } from 'lucide-react';
+import UserCardShimmer from './UserCardShimmer';
 
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
 
   const getFeed = async () => {
     setLoading(true);
-
     try {
       const res = await axios.get(BASE_URL + '/user/feed', {
         withCredentials: true,
@@ -22,24 +21,19 @@ const Feed = () => {
     } catch (err) {
       console.log(err);
     } finally {
-      setLoading(false); // Set loading to false after fetching
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getFeed();
-    // Scroll to top when the component is loaded
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth', // Optional: smooth scrolling
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  // Show loading message or spinner
   if (loading) {
     return (
-      <div className="text-white -mt-16 sm:-mt-10 min-h-screen items-center flex justify-center text-2xl">
-        <Loader className="animate-spin text-gray-500 size-10" />
+      <div className="justify-center items-center -mt-16 sm:-mt-10 min-h-screen flex-wrap flex">
+        <UserCardShimmer />
       </div>
     );
   }
@@ -54,11 +48,9 @@ const Feed = () => {
   }
 
   return (
-    feed && (
-      <div className="justify-center items-center -mt-16 sm:-mt-10 min-h-screen flex-wrap flex">
-        <UserCard user={feed[0]} />
-      </div>
-    )
+    <div className="justify-center items-center -mt-16 sm:-mt-10 min-h-screen flex-wrap flex">
+      <UserCard user={feed[0]} />
+    </div>
   );
 };
 
